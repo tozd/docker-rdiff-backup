@@ -36,7 +36,7 @@ fi
 
 # If it looks like a backup already exists, remove old backups.
 if [ -d /backup/rdiff-backup-data ]; then
-  /usr/bin/rdiff-backup --force --remove-older-than "${RDIFF_BACKUP_EXPIRE:-12M}" /backup
+  ionice -c 3 /usr/bin/rdiff-backup --force --remove-older-than "${RDIFF_BACKUP_EXPIRE:-12M}" /backup
 fi
 
-/usr/bin/rdiff-backup --preserve-numerical-ids --exclude "/source/host$DOCKER_ROOT_DIR" --exclude "/source/host$BACKUP_VOLUME_DIR" --include-globbing-filelist /source/backup.list /source /backup 2>&1 | grep -v UpdateError
+ionice -c 3 /usr/bin/rdiff-backup --preserve-numerical-ids --exclude "/source/host$DOCKER_ROOT_DIR" --exclude "/source/host$BACKUP_VOLUME_DIR" --include-globbing-filelist /source/backup.list /source /backup 2>&1 | grep -v UpdateError
