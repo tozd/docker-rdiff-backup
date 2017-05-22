@@ -40,9 +40,8 @@ if [ -d /backup/rdiff-backup-data ]; then
 fi
 
 # So that the exit value of the whole rdiff-backup call is rdiff-backup and not from the grep.
-# grep's -q assures that grep's exit value is always 0.
 set -o pipefail
 
 # We grep out UpdateError errors because they are not really actionable and happen quite
 # often when backing up active files like logs and databases.
-ionice -c 3 /usr/bin/rdiff-backup --preserve-numerical-ids --exclude "/source/host$DOCKER_ROOT_DIR" --exclude "/source/host$BACKUP_VOLUME_DIR" --include-globbing-filelist /source/backup.list /source /backup 2>&1 | grep -q -v UpdateError
+ionice -c 3 /usr/bin/rdiff-backup --preserve-numerical-ids --exclude "/source/host$DOCKER_ROOT_DIR" --exclude "/source/host$BACKUP_VOLUME_DIR" --include-globbing-filelist /source/backup.list /source /backup 2>&1 | { grep -q -v UpdateError || true; }
