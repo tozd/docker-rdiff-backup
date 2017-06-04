@@ -44,4 +44,4 @@ set -o pipefail
 
 # We grep out UpdateError errors because they are not really actionable and happen quite
 # often when backing up active files like logs and databases.
-ionice -c 3 /usr/bin/rdiff-backup --preserve-numerical-ids --exclude "/source/host$DOCKER_ROOT_DIR" --exclude "/source/host$BACKUP_VOLUME_DIR" --include-globbing-filelist /source/backup.list /source /backup 2>&1 | { grep -v UpdateError || true; }
+ionice -c 3 /usr/bin/rdiff-backup --preserve-numerical-ids --exclude-sockets --exclude "/source/host$DOCKER_ROOT_DIR" --exclude "/source/host$BACKUP_VOLUME_DIR" --include-globbing-filelist /source/backup.list /source /backup 2>&1 | { grep -v UpdateError || true; }
