@@ -5,6 +5,9 @@ just a particular directory. Using rdiff-backup gives you direct access to the l
 with past versions possible to be reconstructed using rdiff-backup. Past changes are stored
 using reverse increments. Backup runs daily.
 
+For remote backup instead of local host backup, consider
+[tozd/rdiff-backup-remote Docker image](https://github.com/tozd/docker-rdiff-backup-remote).
+
 You have to mount `/var/run/docker.sock` from host into `/var/run/docker.sock` for this image
 to work.
 
