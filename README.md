@@ -6,7 +6,7 @@ with past versions possible to be reconstructed using rdiff-backup. Past changes
 using reverse increments. Backup runs daily.
 
 For remote backup instead of local host backup, consider
-[tozd/rdiff-backup-remote Docker image](https://github.com/tozd/docker-rdiff-backup-remote).
+[tozd/rdiff-backup-remote Docker image](https://gitlab.com/tozd/docker/rdiff-backup-remote).
 
 You have to mount `/var/run/docker.sock` from host into `/var/run/docker.sock` for this image
 to work.
@@ -52,14 +52,14 @@ by adding them to `/etc/backup.d` directory in the container (probably by mounti
 volume and then adding the scripts to that directory).
 For example, you can dump databases running inside other Docker containers.
 
-For [tozd/postgresql](https://github.com/tozd/docker-postgresql) image, you can create a script `/etc/backup.d/pgsql` like:
+For [tozd/postgresql](https://gitlab.com/tozd/docker/postgresql) image, you can create a script `/etc/backup.d/pgsql` like:
 
 ```bash
 #!/bin/bash -e
 docker exec pgsql pg_dumpall -U postgres > /source/data/pgsql.sql
 ```
 
-And for [tozd/mysql](https://github.com/tozd/docker-mysql) image, you can create `/etc/backup.d/mysql`:
+And for [tozd/mysql](https://gitlab.com/tozd/docker/mysql) image, you can create `/etc/backup.d/mysql`:
 
 ```bash
 #!/bin/bash -e
