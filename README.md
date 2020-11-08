@@ -2,6 +2,13 @@
 
 <https://gitlab.com/tozd/docker/rdiff-backup>
 
+Available as:
+
+* [`tozd/rdiff-backup`](https://hub.docker.com/r/tozd/rdiff-backup)
+* [`registry.gitlab.com/tozd/docker/rdiff-backup`](https://gitlab.com/tozd/docker/rdiff-backup/container_registry)
+
+## Description
+
 Docker image providing backups with [rdiff-backup](http://www.nongnu.org/rdiff-backup/).
 The main purpose is to backup host with all data volumes stored outside containers, with
 optionally database dumps and other custom data, but it can also be used to backup

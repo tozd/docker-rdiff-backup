@@ -1,4 +1,4 @@
-FROM tozd/cron:ubuntu-xenial
+FROM registry.gitlab.com/tozd/docker/cron:ubuntu-xenial
 
 VOLUME /source/host
 VOLUME /source/data
