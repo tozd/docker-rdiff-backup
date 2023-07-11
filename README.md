@@ -95,6 +95,11 @@ PASSWORD=$(docker exec mysql grep password /etc/mysql/debian.cnf | awk '{print $
 echo "$PASSWORD" | docker exec mysql mysqldump --user=debian-sys-maint --password="$PASSWORD" --all-databases > /source/data/mysql.sql
 ```
 
+To get e-mails with any errors during daily backups, you have also to
+configure `MAILTO`, `ADMINADDR`, and `REMOTES` environment variables
+as described in [`tozd/mailer`](https://gitlab.com/tozd/docker/mailer)
+and [`tozd/cron`](https://gitlab.com/tozd/docker/cron) Docker images.
+
 ## GitHub mirror
 
 There is also a [read-only GitHub mirror available](https://github.com/tozd/docker-rdiff-backup),
