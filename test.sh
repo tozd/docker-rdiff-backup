@@ -27,3 +27,4 @@ docker exec test /etc/cron.daily/backup
 for file in /backup/backup.list /backup/data/allfiles.list /backup/host/etc /backup/rdiff-backup-data ; do
   docker exec test bash -c "[ -e '$file' ] || echo '$file is missing'"
 done
+echo "Success"
