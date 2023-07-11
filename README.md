@@ -4,23 +4,45 @@
 
 Available as:
 
-* [`tozd/rdiff-backup`](https://hub.docker.com/r/tozd/rdiff-backup)
-* [`registry.gitlab.com/tozd/docker/rdiff-backup`](https://gitlab.com/tozd/docker/rdiff-backup/container_registry)
+- [`tozd/rdiff-backup`](https://hub.docker.com/r/tozd/rdiff-backup)
+- [`registry.gitlab.com/tozd/docker/rdiff-backup`](https://gitlab.com/tozd/docker/rdiff-backup/container_registry)
+
+## Image inheritance
+
+[`tozd/base`](https://gitlab.com/tozd/docker/base) ← [`tozd/dinit`](https://gitlab.com/tozd/docker/dinit) ← [`tozd/mailer`](https://gitlab.com/tozd/docker/mailer) ← [`tozd/cron`](https://gitlab.com/tozd/docker/cron) ← `tozd/rdiff-backup`
+
+## Tags
+
+- `latest`: rdiff-backup 2.0.5
+
+## Volumes
+
+- `/source/host`: Mount of the host's `/` directory to backup (but it can also be some other directory).
+- `/source/data`: Before every backup, additional data is collected and stored here and then it is backed up together with the rest of files.
+- `/backup`: Destination to where the backup is made.
+- `/etc/backup.d`: Optional scripts which collect additional data to be backed up and store them into `/source/data` (e.g., database dumps).
+
+## Variables
+
+- `RDIFF_BACKUP_EXPIRE`: How long to keep past versions, provided as a string according to
+  _time formats_ section of [rdiff-backup man page](http://www.nongnu.org/rdiff-backup/rdiff-backup.1.html).
+  Default is 12M for 12 months.
 
 ## Description
 
-Docker image providing backups with [rdiff-backup](http://www.nongnu.org/rdiff-backup/).
+Docker image providing daily backups with [rdiff-backup](http://www.nongnu.org/rdiff-backup/).
 The main purpose is to backup host with all data volumes stored outside containers, with
 optionally database dumps and other custom data, but it can also be used to backup
 just a particular directory. Using rdiff-backup gives you direct access to the latest version
 with past versions possible to be reconstructed using rdiff-backup. Past changes are stored
-using reverse increments. Backup runs daily.
+using reverse increments.
 
 For remote backup instead of local host backup, consider
 [tozd/rdiff-backup-remote Docker image](https://gitlab.com/tozd/docker/rdiff-backup-remote).
 
 You have to mount `/var/run/docker.sock` from host into `/var/run/docker.sock` for this image
-to work.
+to work as the image uses Docker client to obtain information about location of
+Docker directories (to exclude them from backup).
 
 Mount a directory (often host's `/`) you want to backup to `/source/host` volume.
 And mount a directory to where you want to store the backup to `/backup`. That directory
@@ -47,17 +69,12 @@ rest of the `/source/host` (and host's files) is ignored.
 Notice the prefix `/source/host` you have to use for all paths.
 
 You can provide this file by mounting it into the container.
-Consult section *file selection* of [rdiff-backup man page](http://www.nongnu.org/rdiff-backup/rdiff-backup.1.html)
+Consult section _file selection_ of [rdiff-backup man page](http://www.nongnu.org/rdiff-backup/rdiff-backup.1.html)
 for more information on the format of this file.
-
-Used environment variables:
- * `RDIFF_BACKUP_EXPIRE` – how long to keep past versions, provided as a string according to
-   *time formats* section of [rdiff-backup man page](http://www.nongnu.org/rdiff-backup/rdiff-backup.1.html);
-   default: `12M` for 12 months
 
 Every time backup runs it can also collect additional data to backup and stores it under
 `/source/data` in the container, so that it is backed up together with the rest (whole `/source`
-directory is backed up). By default, a list of all files which exist `/source/host` is made
+directory is backed up). By default, a list of all files which exist on host (as mounted to `/source/host`) is made
 and stored under `/source/data/allfiles.list`, but you can also add custom scripts to this step
 by adding them to `/etc/backup.d` directory in the container (probably by mounting a directory to `/etc/backup.d`
 volume and then adding the scripts to that directory).
