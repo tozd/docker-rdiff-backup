@@ -5,7 +5,7 @@ VOLUME /source/data
 VOLUME /backup
 VOLUME /etc/backup.d
 
-ENV RDIFF_BACKUP_EXPIRE 12M
+ENV RDIFF_BACKUP_EXPIRE=12M
 
 RUN apt-get update -q -q && \
   apt-get install rdiff-backup apt-transport-https ca-certificates curl software-properties-common --yes --force-yes && \
