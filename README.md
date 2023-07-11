@@ -94,3 +94,8 @@ And for [tozd/mysql](https://gitlab.com/tozd/docker/mysql) image, you can create
 PASSWORD=$(docker exec mysql grep password /etc/mysql/debian.cnf | awk '{print $3}' | head -1)
 echo "$PASSWORD" | docker exec mysql mysqldump --user=debian-sys-maint --password="$PASSWORD" --all-databases > /source/data/mysql.sql
 ```
+
+## GitHub mirror
+
+There is also a [read-only GitHub mirror available](https://github.com/tozd/docker-rdiff-backup),
+if you need to fork the project there.
