@@ -2,10 +2,8 @@
 
 . /dev/shm/cron-environment
 
-cat /proc/self/mountinfo
-
 DOCKER_ROOT_DIR=$(docker info --format '{{.DockerRootDir}}')
-DOCKER_CONTAINER_ID=$(cat /proc/self/mountinfo | grep -m1 -oE 'docker/containers/([a-f0-9]+)/' | xargs basename)
+DOCKER_CONTAINER_ID=$(cat /proc/self/mountinfo | grep -m1 -oE '/([a-f0-9]+)/hostname /etc/hostname' | cut -d ' ' -f 1 | xargs dirname | xargs basename)
 BACKUP_VOLUME_DIR=$(docker inspect --format='{{range .Mounts}}{{if eq .Destination "/backup"}}{{.Source}}{{end}}{{end}}' "$DOCKER_CONTAINER_ID")
 
 RANDOM_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
