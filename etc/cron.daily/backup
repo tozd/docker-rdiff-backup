@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+set -e
+set -x
+
 . /dev/shm/cron-environment
 
 DOCKER_ROOT_DIR=$(docker info --format '{{.DockerRootDir}}')
