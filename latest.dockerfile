@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/tozd/docker/cron:ubuntu-nobel
+FROM registry.gitlab.com/tozd/docker/cron:ubuntu-noble
 
 VOLUME /source/host
 VOLUME /source/data
