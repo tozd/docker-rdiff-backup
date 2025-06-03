@@ -13,7 +13,7 @@ Available as:
 
 ## Tags
 
-- `latest`: rdiff-backup 2.0.5
+- `latest`: rdiff-backup 2.2.6
 
 ## Volumes
 
